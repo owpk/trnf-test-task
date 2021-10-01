@@ -1,0 +1,56 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PG_DATA: /var/lib/postgresql/data
+    volumes:
+#      - db_data:/var/lib/postgresql/data
+      - ./db-docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+  rabbitmq:
+    image: rabbitmq:3.8-management
+#    volumes:
+#      - ./rabbitmq/etc/definitions.json:/etc/rabbitmq/definitions.json
+#      - ./rabbitmq/etc/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+#      - ./rabbitmq/data:/var/lib/rabbitmq/mnesia/rabbit@my-rabbit
+#      - ./rabbitmq/logs:/var/log/rabbitmq/log
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: "guest"
+      RABBITMQ_DEFAULT_PASS: "guest"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    hostname: rabbitmq
+
+  consumer:
+    build:
+      context: .
+      dockerfile: ./message-consumer/Dockerfile
+    ports:
+      - "8080:8081"
+    depends_on:
+      rabbitmq:
+        condition: service_started
+
+  producer:
+    build:
+      context: .
+      dockerfile: ./message-producer/Dockerfile
+    ports:
+      - "80:8080"
+    depends_on:
+      db:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+
+volumes:
+  db_data: { }

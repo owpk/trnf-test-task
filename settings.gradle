@@ -1,0 +1,5 @@
+rootProject.name = 'app'
+include 'message-producer'
+include 'message-consumer'
+include 'global'
+
