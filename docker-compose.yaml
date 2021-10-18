@@ -9,6 +9,11 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       PG_DATA: /var/lib/postgresql/data
+#    healthcheck:
+#      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER"]
+#      interval: 5s
+#      timeout: 5s
+#      retries: 5
     volumes:
 #      - db_data:/var/lib/postgresql/data
       - ./db-docker/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -21,6 +26,11 @@ services:
 #      - ./rabbitmq/etc/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
 #      - ./rabbitmq/data:/var/lib/rabbitmq/mnesia/rabbit@my-rabbit
 #      - ./rabbitmq/logs:/var/log/rabbitmq/log
+    healthcheck:
+      test: rabbitmq-diagnostics -q ping
+      interval: 5s
+      timeout: 5s
+      retries: 3
     ports:
       - 5672:5672
       - 15672:15672
@@ -35,22 +45,24 @@ services:
       context: .
       dockerfile: ./message-consumer/Dockerfile
     ports:
-      - "8080:8081"
+      - "8580:8081"
     depends_on:
       rabbitmq:
-        condition: service_started
+        condition: service_healthy
 
   producer:
     build:
       context: .
       dockerfile: ./message-producer/Dockerfile
     ports:
-      - "80:8080"
+      - "8080:8080"
+    environment:
+       JAVA_OPTS: "-Dspring.profiles.active=docker"
     depends_on:
-      db:
-        condition: service_started
+      # db:
+      #   condition: service_healthy
       rabbitmq:
-        condition: service_started
+        condition: service_healthy
 
 volumes:
   db_data: { }

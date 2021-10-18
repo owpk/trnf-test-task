@@ -1,21 +1,21 @@
-create table users(
+create table if not exists users(
     id          bigserial primary key,
     name        varchar(100) not null,
     email       varchar(100) not null
 );
 
-create table items(
+create table if not exists items(
     id          bigserial primary key,
     name        varchar(100) not null,
     cost        integer
 );
 
-create table orders(
+create table if not exists orders(
     id          bigserial primary key,
     user_id     bigint references users (id)
 );
 
-create table order_items (
+create table if not exists order_items (
     id          bigserial primary key,
     item_id     bigint references items(id),
     order_id    bigint references orders(id)

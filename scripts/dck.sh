@@ -14,7 +14,14 @@ then
   docker image rm $(docker image ls -q)
 fi
 
-# basically you need only these 3 lines
+if [ "$1" == 'no-build' ]
+then
+   echo "no build"
+else
+   ./gradlew build
+fi
+
+# basically you need only these lines
 $cmd rm -f 2> /dev/null
 $cmd build --no-cache
 $cmd up

@@ -7,6 +7,9 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Import;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+
 @SpringBootApplication
 @Import(RabbitMQConfiguration.class)
 public class AppApplication extends SpringBootServletInitializer {
@@ -18,5 +21,11 @@ public class AppApplication extends SpringBootServletInitializer {
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(AppApplication.class);
+	}
+
+	@Override
+	public void onStartup(ServletContext servletContext) throws ServletException {
+		super.onStartup(servletContext);
+		servletContext.setInitParameter("spring.profiles.active", "docker");
 	}
 }

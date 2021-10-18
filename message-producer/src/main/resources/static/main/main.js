@@ -1,7 +1,7 @@
 angular.module('app').controller('mainController',
     function ($scope, $http, $localStorage) {
 
-    baseCtx = 'http://localhost/app/rest/api'
+    baseCtx = 'http://localhost:8080/app/rest/api'
 
     $scope.getUser = function() {
         $http({
