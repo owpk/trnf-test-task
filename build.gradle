@@ -19,8 +19,8 @@ configure ([producerModule, consumerModule, globalModule]) {
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'java'
 
-    sourceCompatibility = '16'
-    targetCompatibility = '16'
+    sourceCompatibility = '11'
+    targetCompatibility = '11'
 
     repositories {
         mavenCentral()
@@ -31,7 +31,7 @@ configure ([producerModule, consumerModule, globalModule]) {
         compileOnly 'org.projectlombok:lombok'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         testImplementation 'org.springframework.amqp:spring-rabbit-test'
-        annotationProcessor 'org.projectlombok:lombok:1.18.8'
+        annotationProcessor 'org.projectlombok:lombok:1.18.20'
     }
 
     configurations {
