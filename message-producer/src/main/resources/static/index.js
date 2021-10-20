@@ -9,8 +9,16 @@
     function config($routeProvider, $httpProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: 'main/main.html',
-                controller: 'mainController'
+                    templateUrl: 'auth/auth.html',
+                    controller: 'authController'
+            })
+            .when('/main', {
+                    templateUrl: 'main/main.html',
+                    controller: 'mainController'
+            })
+            .when('/auth', {
+                    templateUrl: 'auth/auth.html',
+                    controller: 'authController'
             })
     }
 

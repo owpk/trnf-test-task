@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.owpk.entities.OrderItem;
 import org.owpk.entities.dto.CartDto;
 import org.owpk.services.ItemService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
@@ -63,7 +62,11 @@ public class CartManager {
     }
 
     public void removeItem(Long id) {
-        itemList.removeIf(x -> x.getItem().getId().equals(id));
+        for (int i = 0; i < itemList.size(); i++)
+            if (itemList.get(i).getItem().getId().equals(id)) {
+                itemList.remove(i);
+                break;
+            }
         recalculate();
     }
 

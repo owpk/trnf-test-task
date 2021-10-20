@@ -21,10 +21,10 @@ $ docker compose --help
 # make sure your docker service is running:
 $ sudo systemctl start docker
 ```
-> maybe you want to check this guides to install and configure docker:
-> https://docs.docker.com/engine/install/linux-postinstall/
-> https://docs.docker.com/get-docker/
-> https://docs.docker.com/compose/install/
+> maybe you want to check this guides to install and configure docker:  
+> https://docs.docker.com/engine/install/linux-postinstall/  
+> https://docs.docker.com/get-docker/  
+> https://docs.docker.com/compose/install/  
 1. clone project
 ```bash
 $ git clone https://github.com/owpk/trnf-test-task
@@ -44,7 +44,7 @@ $ docker compose up
   <img src="https://github.com/owpk/trnf-test-task/blob/master/github-img/dck.gif" title="docker startup"/>
 </p>
 
-3. go to url http://localhost/app
+3. go to url http://localhost:8080/app
 - you should see something like this:
 <p align="center">
   <img src="https://github.com/owpk/trnf-test-task/blob/master/github-img/web.gif" title="web view" />
@@ -65,9 +65,9 @@ $ docker compose up
 
  <h2> Used frameworks / middleware soft / etc : </h2>
 
-> Spring boot 2.5.5
-> Postgresql
-> Tomcat 9.0.53
-> RabbitMQ 3.8
-> docker compose 3.9
+> Spring boot 2.5.5  
+> Postgresql  
+> Tomcat 9.0.53  
+> RabbitMQ 3.8  
+> docker compose 3.9  
 > AngularJs

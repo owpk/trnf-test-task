@@ -3,6 +3,7 @@ package org.owpk.entities;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -11,7 +12,9 @@ import javax.persistence.*;
 @JsonAutoDetect
 @Getter
 @Setter
+@ToString
 public class User {
+
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)

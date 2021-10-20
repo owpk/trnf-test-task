@@ -73,16 +73,17 @@ configure consumerModule, {
         implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '1.2.0.RELEASE'
     }
 }
+
 configure globalModule, {
-    tasks.getByName("bootJar") {
+    tasks.getByName "bootJar", {
         enabled = false
     }
 
-    tasks.getByName("jar") {
+    tasks.getByName "jar", {
         enabled = true
     }
 }
 
-tasks.getByName("bootJar") {
+tasks.getByName "bootJar", {
     enabled = false
 }
